@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TikTok Video</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F9F8F4;--ink:#000;--yellow:#FFDE42;--blue:#4067F0;--mute:#333;--err:#D6001C}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"Space Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;color:var(--ink);line-height:1.6;background-color:var(--bg);background-image:radial-gradient(#D4D2CA 1.2px,transparent 1.4px);background-size:20px 20px;min-height:100vh;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+main{max-width:520px;margin:0 auto;padding:20px 16px 48px}
+.card{background:#fff;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:18px 18px 22px;margin-bottom:24px}
+.badge{display:inline-block;background:var(--blue);color:#fff;font-weight:700;font-size:15px;line-height:1.5;padding:3px 14px;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);margin-bottom:14px}
+h1{font-size:21px;line-height:1.2;margin:0 0 6px;font-weight:700}
+p{margin:0 0 14px;font-size:15px;color:#222}
+label{display:block;font-weight:700;font-size:15px;margin-bottom:6px}
+input{width:100%;height:42px;padding:0 12px;font:inherit;font-size:14px;border:3px solid var(--ink);border-radius:0;background:#fff;color:var(--ink)}
+input::placeholder{color:#777}
+input:focus-visible,button:focus-visible,a:focus-visible,video:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+button{display:block;width:calc(100% - 6px);height:42px;margin-top:16px;padding:0 10px;font:inherit;font-size:15px;font-weight:500;text-align:center;color:var(--ink);background:var(--yellow);border:3px solid var(--ink);border-radius:0;box-shadow:6px 6px 0 var(--ink);cursor:pointer;transition:transform .08s,box-shadow .08s}
+button:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--ink)}
+button:disabled{opacity:.6;cursor:wait}
+button.white{background:#fff}
+button.blue{background:var(--blue);color:#fff}
+#msg{margin:-6px 0 18px;font-weight:500;min-height:1.4em;font-size:14px}
+#msg.err{color:var(--err);font-weight:700}
+#res{display:none}
+#res.show{display:block}
+video{display:block;width:100%;max-height:70vh;background:#000;border:3px solid var(--ink);margin-bottom:14px}
+.who{display:flex;align-items:center;gap:8px;font-weight:700}
+.who img{width:28px;height:28px;border:2px solid var(--ink);border-radius:50%;object-fit:cover}
+.title{margin:8px 0 4px;overflow-wrap:anywhere}
+.stats{font-size:13px;color:var(--mute);margin:0}
+.imgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px;margin-top:14px}
+.imgs a{display:block}
+.imgs img{width:100%;aspect-ratio:1;object-fit:cover;border:3px solid var(--ink);display:block}
+#photoActs{margin-top:16px}
+#photoActs button{margin-top:12px}
+@media (prefers-reduced-motion:reduce){button{transition:none}}
+
+h2{font-size:21px;line-height:1.2;margin:0 0 6px;font-weight:700}
+h3{font-size:15px;font-weight:700;margin:16px 0 6px}
+ol,ul{margin:0;padding-left:20px}
+li{margin-bottom:6px;color:#222}
+
+footer{font-size:12px;color:#666;text-align:center;margin-top:32px;line-height:1.7;padding:0 8px}
+footer p{margin:0 0 6px;font-size:12px;color:#666}
+footer .sep{margin:0 4px;opacity:.5}
+footer a{color:var(--blue);text-decoration:none;font-weight:500}
+footer a:hover{text-decoration:underline}
+footer .copy{font-weight:700;color:#444}
+
+.layout{display:block}
+@media (min-width:900px){
+  body{font-size:17px}
+  main{max-width:1120px;padding:56px 40px 72px}
+  .layout{display:grid;grid-template-columns:1.15fr 1fr;gap:44px;align-items:start}
+  #tentang{position:sticky;top:32px}
+  .card{padding:28px 30px 32px;box-shadow:9px 9px 0 var(--ink);margin-bottom:34px}
+  #tentang{margin-bottom:0}
+  .badge{font-size:17px;padding:4px 18px;margin-bottom:18px;box-shadow:4px 4px 0 var(--ink)}
+  h1,h2{font-size:30px;margin-bottom:10px}
+  h3{font-size:17px;margin-top:22px}
+  p,label{font-size:17px}
+  input{height:54px;font-size:16px;padding:0 16px}
+  button{height:54px;font-size:17px;width:calc(100% - 9px);margin-top:22px;box-shadow:9px 9px 0 var(--ink)}
+  button:active{transform:translate(6px,6px);box-shadow:3px 3px 0 var(--ink)}
+  #msg{font-size:16px}
+  .stats{font-size:15px}
+  footer{margin-top:48px;font-size:13px}
+  footer p{font-size:13px}
+}
+</style>
+</head>
+<body>
+<main>
+  <div class="layout">
+    <div class="col">
+  <section class="card" id="fitur">
+    <span class="badge">Video</span>
+    <h1>TikTok Video</h1>
+    <p>Putar dan unduh video TikTok kualitas HD dari link video.</p>
+    <form id="f">
+      <label for="url">URL video</label>
+      <input id="url" type="url" inputmode="url" placeholder="https://vt.tiktok.com/xxxxxxxx" required>
+      <button id="go" type="submit">Proses</button>
+    </form>
+  </section>
+
+  <p id="msg" role="status" aria-live="polite"></p>
+
+  <section class="card" id="res" aria-live="polite"></section>
+    </div>
+    <aside class="card" id="tentang">
+      <span class="badge">Tentang</span>
+      <h2>Tentang Situs Ini</h2>
+      <p>Situs ini membantu kamu menyimpan video TikTok tanpa watermark langsung dari browser. Tidak perlu login dan tidak perlu pasang aplikasi.</p>
+      <h3>Cara pakai</h3>
+      <ol>
+        <li>Di TikTok, buka video lalu pilih Bagikan &rarr; Salin tautan.</li>
+        <li>Tempel tautan di kolom URL video.</li>
+        <li>Tekan Proses, lalu pilih unduh video HD, video biasa, atau musiknya saja.</li>
+      </ol>
+    </aside>
+  </div>
+
+  <footer>
+    <p class="copy">&copy; <span id="year"></span> Snaptik Lite</p>
+    <p>Dibuat untuk keperluan pribadi. Semua konten adalah milik pembuat aslinya.</p>
+    <p>Gunakan dengan bijak <span class="sep">·</span> Tidak berafiliasi dengan TikTok</p>
+  </footer>
+</main>
+
+<script>
+const API = "https://www.tikwm.com/api/";
+const $ = id => document.getElementById(id);
+const msg = (t, err) => { $("msg").textContent = t || ""; $("msg").className = err ? "err" : ""; };
+const abs = u => !u ? "" : u.startsWith("http") ? u : "https://www.tikwm.com" + u;
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const num = n => new Intl.NumberFormat("id-ID", {notation:"compact"}).format(n || 0);
+
+// Isi tahun otomatis di footer
+$("year").textContent = new Date().getFullYear();
+
+async function fetchInfo(url) {
+  const r = await fetch(API + "?hd=1&url=" + encodeURIComponent(url));
+  if (!r.ok) throw new Error("Server tikwm tidak merespons (" + r.status + ").");
+  const j = await r.json();
+  if (j.code !== 0 || !j.data) throw new Error(j.msg || "Video tidak ditemukan. Pastikan link benar dan videonya publik.");
+  return j.data;
+}
+
+async function saveFile(url, name, btn) {
+  const old = btn.textContent;
+  btn.disabled = true; btn.textContent = "Mengunduh…";
+  try {
+    const r = await fetch(url);
+    if (!r.ok) throw 0;
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(await r.blob());
+    a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  } catch { window.open(url, "_blank", "noopener"); }
+  btn.disabled = false; btn.textContent = old;
+}
+
+function render(d) {
+  const id = d.id || Date.now();
+
+  // --- Deteksi Photo Mode ---
+  const rawImages = Array.isArray(d.images) ? d.images : [];
+  const imgs = rawImages
+    .map(abs)
+    .filter(u => typeof u === "string" && u.length > 0);
+
+  const isPhotoMode = imgs.length > 0;
+
+  const hd = isPhotoMode ? "" : abs(d.hdplay);
+  const sd = isPhotoMode ? "" : abs(d.play);
+  const mp3 = abs(d.music || (d.music_info && d.music_info.play));
+  const playSrc = hd || sd;
+
+  const files = [];
+  if (hd) files.push(["Unduh Video HD", hd, `tiktok-${id}-hd.mp4`, ""]);
+  if (sd) files.push([hd ? "Unduh Video Biasa" : "Unduh Video", sd, `tiktok-${id}.mp4`, hd ? "white" : ""]);
+  if (!isPhotoMode && mp3) files.push(["Unduh Musik MP3", mp3, `tiktok-${id}.mp3`, "blue"]);
+
+  $("res").innerHTML = `
+    <span class="badge">${isPhotoMode ? "Slide Foto" : "Hasil"}</span>
+    ${playSrc ? `<video controls playsinline preload="metadata" poster="${esc(abs(d.cover))}" src="${esc(playSrc)}"></video>` : ""}
+    <div class="who"><img src="${esc(abs(d.author && d.author.avatar))}" alt=""><span>${esc(d.author && (d.author.nickname || d.author.unique_id))}</span></div>
+    <p class="title">${esc(d.title) || "Tanpa judul"}</p>
+    <p class="stats">${num(d.play_count)} tayangan · ${num(d.digg_count)} suka · ${num(d.comment_count)} komentar</p>
+    ${isPhotoMode ? `
+      <div class="imgs">${imgs.map((u,i)=>`<a href="${esc(u)}" target="_blank" rel="noopener"><img src="${esc(u)}" alt="Foto ${i+1}" loading="lazy"></a>`).join("")}</div>
+      <div id="photoActs"></div>
+    ` : ""}
+    <div id="acts"></div>`;
+
+  files.forEach(([label, url, name, cls]) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.textContent = label; if (cls) b.className = cls;
+    b.onclick = () => saveFile(url, name, b);
+    $("acts").appendChild(b);
+  });
+
+  if (isPhotoMode) {
+    const photoActs = $("photoActs");
+
+    const allBtn = document.createElement("button");
+    allBtn.type = "button";
+    allBtn.textContent = "Download Semua Slide Foto";
+    allBtn.onclick = async () => {
+      allBtn.disabled = true;
+      const oldText = allBtn.textContent;
+      try {
+        for (let i = 0; i < imgs.length; i++) {
+          allBtn.textContent = `Mengunduh Foto ${i + 1}/${imgs.length}…`;
+          await saveFile(imgs[i], `tiktok-${id}-foto-${i + 1}.jpg`, allBtn);
+          if (i < imgs.length - 1) {
+            await new Promise(resolve => setTimeout(resolve, 350));
+          }
+        }
+      } finally {
+        allBtn.disabled = false;
+        allBtn.textContent = oldText;
+      }
+    };
+    photoActs.appendChild(allBtn);
+
+    imgs.forEach((url, i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = `Download Slide Foto ${i + 1}`;
+      b.className = "white";
+      b.onclick = () => saveFile(url, `tiktok-${id}-foto-${i + 1}.jpg`, b);
+      photoActs.appendChild(b);
+    });
+  }
+
+  $("res").classList.add("show");
+}
+
+$("f").addEventListener("submit", async e => {
+  e.preventDefault();
+  $("res").classList.remove("show");
+  msg("Memproses…");
+  $("go").disabled = true;
+  try {
+    render(await fetchInfo($("url").value.trim()));
+    msg("");
+    $("res").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion:reduce)").matches ? "auto" : "smooth"});
+  } catch (err) {
+    msg(err instanceof TypeError ? "Permintaan ke tikwm gagal. Buka halaman ini dari hosting sendiri (bukan pratinjau), atau periksa koneksi." : err.message, true);
+  } finally { $("go").disabled = false; }
+});
+</script>
+</body>
+</html>
