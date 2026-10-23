@@ -3,116 +3,140 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>TikTok Video</title>
+<title>Snaptik Lite – Simpan video TikTok tanpa watermark</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#F9F8F4;--ink:#000;--yellow:#FFDE42;--blue:#4067F0;--mute:#333;--err:#D6001C}
+:root{--paper:#ECEBF1;--card:#F8F7FB;--ink:#17152B;--soft:#5B5873;--rec:#F0432E;--cobalt:#2D3FD8;--line:#C9C7D6;--err:#C4210F;
+--display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;--body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
 *{box-sizing:border-box}
 html,body{margin:0}
-body{font-family:"Space Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;color:var(--ink);line-height:1.6;background-color:var(--bg);background-image:radial-gradient(#D4D2CA 1.2px,transparent 1.4px);background-size:20px 20px;min-height:100vh;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
-main{max-width:520px;margin:0 auto;padding:20px 16px 48px}
-.card{background:#fff;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:18px 18px 22px;margin-bottom:24px}
-.badge{display:inline-block;background:var(--blue);color:#fff;font-weight:700;font-size:15px;line-height:1.5;padding:3px 14px;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);margin-bottom:14px}
-h1{font-size:21px;line-height:1.2;margin:0 0 6px;font-weight:700}
-p{margin:0 0 14px;font-size:15px;color:#222}
-label{display:block;font-weight:700;font-size:15px;margin-bottom:6px}
-input{width:100%;height:42px;padding:0 12px;font:inherit;font-size:14px;border:3px solid var(--ink);border-radius:0;background:#fff;color:var(--ink)}
-input::placeholder{color:#777}
-input:focus-visible,button:focus-visible,a:focus-visible,video:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
-button{display:block;width:calc(100% - 6px);height:42px;margin-top:16px;padding:0 10px;font:inherit;font-size:15px;font-weight:500;text-align:center;color:var(--ink);background:var(--yellow);border:3px solid var(--ink);border-radius:0;box-shadow:6px 6px 0 var(--ink);cursor:pointer;transition:transform .08s,box-shadow .08s}
-button:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--ink)}
-button:disabled{opacity:.6;cursor:wait}
-button.white{background:#fff}
-button.blue{background:var(--blue);color:#fff}
-#msg{margin:-6px 0 18px;font-weight:500;min-height:1.4em;font-size:14px}
-#msg.err{color:var(--err);font-weight:700}
+body{font-family:var(--body);font-size:16px;line-height:1.6;color:var(--ink);background:var(--paper);min-height:100vh;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+svg{display:block}
+.wrap{max-width:1080px;margin:0 auto;padding:20px 20px 48px}
+header{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.01em;margin-bottom:36px}
+header svg{width:30px;height:30px}
+.grid{display:grid;gap:32px}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(36px,9vw,66px);line-height:1;letter-spacing:-.035em;margin:0 0 16px;text-wrap:balance}
+.lead{margin:0 0 28px;color:var(--soft);max-width:44ch}
+form{margin:0}
+label{display:block;font-weight:600;font-size:14px;margin-bottom:8px}
+.field{display:flex;flex-direction:column;gap:10px}
+.input{position:relative}
+.input svg{position:absolute;left:14px;top:50%;width:20px;height:20px;margin-top:-10px;color:var(--soft);pointer-events:none}
+input{width:100%;height:52px;padding:0 14px 0 44px;font:inherit;color:var(--ink);background:var(--card);border:1.5px solid var(--ink);border-radius:10px}
+input::placeholder{color:#8C89A3}
+input:focus-visible,button:focus-visible,a:focus-visible,video:focus-visible{outline:3px solid var(--cobalt);outline-offset:2px}
+button{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:52px;padding:0 20px;font:inherit;font-weight:600;color:var(--card);background:var(--ink);border:1.5px solid var(--ink);border-radius:10px;cursor:pointer;transition:background .15s,transform .1s}
+button:hover{background:#2A2750}
+button:active{transform:scale(.98)}
+button:disabled{opacity:.55;cursor:wait}
+button svg{width:20px;height:20px;flex:none}
+button.alt{color:var(--ink);background:transparent;justify-content:flex-start}
+button.alt:hover{background:#E0DEEA}
+button.alt .tag{margin-left:auto;font-size:13px;font-weight:500;color:var(--soft)}
+#go .dot{width:10px;height:10px;border-radius:50%;background:var(--rec)}
+#msg{min-height:1.5em;margin:14px 0 0;font-size:14px;font-weight:500;color:var(--soft)}
+#msg.err{color:var(--err);font-weight:600}
+
+.steps{list-style:none;margin:36px 0 0;padding:0;display:grid;gap:14px}
+.steps li{display:flex;gap:14px;align-items:flex-start;margin:0;font-size:15px}
+.steps .ic{flex:none;width:40px;height:40px;border:1.5px solid var(--ink);border-radius:50%;display:grid;place-items:center;background:var(--card)}
+.steps .ic svg{width:20px;height:20px}
+.steps b{display:block;font-weight:600}
+.steps span{color:var(--soft)}
+
+.stage{position:relative}
+#idle{display:none}
 #res{display:none}
 #res.show{display:block}
-video{display:block;width:100%;max-height:70vh;background:#000;border:3px solid var(--ink);margin-bottom:14px}
-.who{display:flex;align-items:center;gap:8px;font-weight:700}
-.who img{width:28px;height:28px;border:2px solid var(--ink);border-radius:50%;object-fit:cover}
+.frame{position:relative;background:#000;border-radius:4px;margin-bottom:16px}
+.frame video{display:block;width:100%;max-height:68vh;background:#000}
+.frame svg{position:absolute;inset:8px;width:calc(100% - 16px);height:calc(100% - 16px);pointer-events:none;color:#fff}
+.meta{display:flex;align-items:center;gap:10px;font-weight:600}
+.meta img{width:32px;height:32px;border-radius:50%;object-fit:cover;background:var(--line)}
 .title{margin:8px 0 4px;overflow-wrap:anywhere}
-.stats{font-size:13px;color:var(--mute);margin:0}
-.imgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px;margin-top:14px}
-.imgs a{display:block}
-.imgs img{width:100%;aspect-ratio:1;object-fit:cover;border:3px solid var(--ink);display:block}
-#photoActs{margin-top:16px}
-#photoActs button{margin-top:12px}
-@media (prefers-reduced-motion:reduce){button{transition:none}}
+.stats{margin:0 0 18px;font-size:14px;color:var(--soft)}
+.acts{display:grid;gap:10px}
+.imgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px;margin:0 0 18px}
+.imgs img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;display:block}
+.res-h{display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px;margin-bottom:12px}
+.res-h i{width:10px;height:10px;border-radius:50%;background:var(--rec)}
 
-h2{font-size:21px;line-height:1.2;margin:0 0 6px;font-weight:700}
-h3{font-size:15px;font-weight:700;margin:16px 0 6px}
-ol,ul{margin:0;padding-left:20px}
-li{margin-bottom:6px;color:#222}
+footer{margin-top:56px;padding-top:20px;border-top:1.5px solid var(--line);font-size:13px;color:var(--soft)}
+footer p{margin:0 0 4px}
 
-footer{font-size:12px;color:#666;text-align:center;margin-top:32px;line-height:1.7;padding:0 8px}
-footer p{margin:0 0 6px;font-size:12px;color:#666}
-footer .sep{margin:0 4px;opacity:.5}
-footer a{color:var(--blue);text-decoration:none;font-weight:500}
-footer a:hover{text-decoration:underline}
-footer .copy{font-weight:700;color:#444}
+.rec{animation:blink 1.4s steps(1) infinite}
+@keyframes blink{50%{opacity:.15}}
+@media (prefers-reduced-motion:reduce){.rec{animation:none}button{transition:none}}
 
-.layout{display:block}
+@media (min-width:640px){
+  .field{flex-direction:row}
+  button#go{width:auto;flex:none}
+  .acts{grid-template-columns:1fr}
+}
 @media (min-width:900px){
-  body{font-size:17px}
-  main{max-width:1120px;padding:56px 40px 72px}
-  .layout{display:grid;grid-template-columns:1.15fr 1fr;gap:44px;align-items:start}
-  #tentang{position:sticky;top:32px}
-  .card{padding:28px 30px 32px;box-shadow:9px 9px 0 var(--ink);margin-bottom:34px}
-  #tentang{margin-bottom:0}
-  .badge{font-size:17px;padding:4px 18px;margin-bottom:18px;box-shadow:4px 4px 0 var(--ink)}
-  h1,h2{font-size:30px;margin-bottom:10px}
-  h3{font-size:17px;margin-top:22px}
-  p,label{font-size:17px}
-  input{height:54px;font-size:16px;padding:0 16px}
-  button{height:54px;font-size:17px;width:calc(100% - 9px);margin-top:22px;box-shadow:9px 9px 0 var(--ink)}
-  button:active{transform:translate(6px,6px);box-shadow:3px 3px 0 var(--ink)}
-  #msg{font-size:16px}
-  .stats{font-size:15px}
-  footer{margin-top:48px;font-size:13px}
-  footer p{font-size:13px}
+  .wrap{padding:36px 40px 64px}
+  .grid{grid-template-columns:1.1fr .9fr;gap:72px;align-items:start}
+  #idle{display:block;width:100%;max-width:340px;margin:0 auto;color:var(--ink)}
+  .stage.has #idle{display:none}
+  .stage{position:sticky;top:32px}
 }
 </style>
 </head>
 <body>
-<main>
-  <div class="layout">
-    <div class="col">
-  <section class="card" id="fitur">
-    <span class="badge">Video</span>
-    <h1>TikTok Video</h1>
-    <p>Putar dan unduh video TikTok kualitas HD dari link video.</p>
-    <form id="f">
-      <label for="url">URL video</label>
-      <input id="url" type="url" inputmode="url" placeholder="https://vt.tiktok.com/xxxxxxxx" required>
-      <button id="go" type="submit">Proses</button>
-    </form>
-  </section>
+<div class="wrap">
+  <header>
+    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M3 11V5a2 2 0 0 1 2-2h6M21 3h6a2 2 0 0 1 2 2v6M29 21v6a2 2 0 0 1-2 2h-6M11 29H5a2 2 0 0 1-2-2v-6" stroke="#17152B" stroke-width="2.4" stroke-linecap="round"/><circle cx="16" cy="16" r="5" fill="#F0432E"/></svg>
+    Snaptik Lite
+  </header>
 
-  <p id="msg" role="status" aria-live="polite"></p>
+  <div class="grid">
+    <main>
+      <h1>Simpan video TikTok tanpa watermark</h1>
+      <p class="lead">Tempel link videonya, lalu unduh dalam kualitas HD. Tanpa login, tanpa aplikasi tambahan.</p>
 
-  <section class="card" id="res" aria-live="polite"></section>
-    </div>
-    <aside class="card" id="tentang">
-      <span class="badge">Tentang</span>
-      <h2>Tentang Situs Ini</h2>
-      <p>Situs ini membantu kamu menyimpan video TikTok tanpa watermark langsung dari browser. Tidak perlu login dan tidak perlu pasang aplikasi.</p>
-      <h3>Cara pakai</h3>
-      <ol>
-        <li>Di TikTok, buka video lalu pilih Bagikan &rarr; Salin tautan.</li>
-        <li>Tempel tautan di kolom URL video.</li>
-        <li>Tekan Proses, lalu pilih unduh video HD, video biasa, atau musiknya saja.</li>
+      <form id="f">
+        <label for="url">Link video TikTok</label>
+        <div class="field">
+          <div class="input">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3A4.5 4.5 0 0 0 11 19.4l1-1"/></svg>
+            <input id="url" type="url" inputmode="url" placeholder="https://vt.tiktok.com/xxxxxxxx" required>
+          </div>
+          <button id="go" type="submit"><span class="dot"></span>Ambil video</button>
+        </div>
+      </form>
+      <p id="msg" role="status" aria-live="polite"></p>
+
+      <ol class="steps" aria-label="Cara pakai">
+        <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"/></svg></span><div><b>Salin tautan</b><span>Di TikTok, buka video lalu pilih Bagikan dan Salin tautan.</span></div></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1"/><path d="M16 5h2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2"/></svg></span><div><b>Tempel di kolom</b><span>Tempel tautan di atas, lalu tekan Ambil video.</span></div></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 20h16"/></svg></span><div><b>Pilih unduhan</b><span>Video HD, video biasa, atau musiknya saja.</span></div></li>
       </ol>
-    </aside>
+    </main>
+
+    <div class="stage" id="stage">
+      <svg id="idle" viewBox="0 0 300 470" fill="none" aria-hidden="true">
+        <rect x="1" y="1" width="298" height="468" rx="6" fill="#F8F7FB" stroke="#C9C7D6" stroke-width="1.5"/>
+        <g stroke="#C9C7D6" stroke-width="1" stroke-dasharray="3 5"><path d="M100 14v442M200 14v442M14 157h272M14 313h272"/></g>
+        <g stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M16 46V18h28M256 18h28v28M284 424v28h-28M44 452H16v-28"/></g>
+        <g class="rec"><circle cx="40" cy="42" r="6" fill="#F0432E"/></g>
+        <text x="54" y="47" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="15" fill="currentColor">REC</text>
+        <text x="284" y="47" text-anchor="end" font-family="Instrument Sans,sans-serif" font-weight="500" font-size="13" fill="#5B5873">00:00:15</text>
+        <circle cx="150" cy="235" r="46" fill="#17152B"/>
+        <path d="M139 212v46l38-23z" fill="#F8F7FB"/>
+        <g fill="#2D3FD8"><rect x="86" y="396" width="6" height="14" rx="3"/><rect x="100" y="388" width="6" height="30" rx="3"/><rect x="114" y="378" width="6" height="50" rx="3"/><rect x="128" y="392" width="6" height="22" rx="3"/><rect x="142" y="384" width="6" height="38" rx="3"/><rect x="156" y="372" width="6" height="62" rx="3"/><rect x="170" y="390" width="6" height="26" rx="3"/><rect x="184" y="382" width="6" height="42" rx="3"/><rect x="198" y="394" width="6" height="18" rx="3"/></g>
+      </svg>
+      <section id="res" aria-live="polite"></section>
+    </div>
   </div>
 
   <footer>
-    <p class="copy">&copy; <span id="year"></span> Snaptik Lite</p>
-    <p>Dibuat untuk keperluan pribadi. Semua konten adalah milik pembuat aslinya.</p>
-    <p>Gunakan dengan bijak <span class="sep">·</span> Tidak berafiliasi dengan TikTok</p>
+    <p><b>&copy; <span id="year"></span> Snaptik Lite</b></p>
+    <p>Dibuat untuk keperluan pribadi. Semua konten adalah milik pembuat aslinya. Tidak berafiliasi dengan TikTok.</p>
   </footer>
-</main>
+</div>
 
 <script>
 const API = "https://www.tikwm.com/api/";
@@ -122,7 +146,15 @@ const abs = u => !u ? "" : u.startsWith("http") ? u : "https://www.tikwm.com" + 
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const num = n => new Intl.NumberFormat("id-ID", {notation:"compact"}).format(n || 0);
 
-// Isi tahun otomatis di footer
+const ICON = {
+  video:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="14" height="14" rx="2"/><path d="m16 10 6-3v10l-6-3"/></svg>',
+  music:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>',
+  image:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-4-4L5 21"/></svg>',
+  down:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 20h16"/></svg>'
+};
+const btnHTML = (icon, label, tag) => ICON[icon] + "<span>" + label + "</span>" + (tag ? `<span class="tag">${tag}</span>` : "");
+const BRACKETS = '<svg viewBox="0 0 100 100" preserveAspectRatio="none" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linecap="round"><path vector-effect="non-scaling-stroke" d="M0 8V0h8M92 0h8v8M100 92v8h-8M8 100H0v-8"/></g></svg>';
+
 $("year").textContent = new Date().getFullYear();
 
 async function fetchInfo(url) {
@@ -134,7 +166,7 @@ async function fetchInfo(url) {
 }
 
 async function saveFile(url, name, btn) {
-  const old = btn.textContent;
+  const old = btn.innerHTML;
   btn.disabled = true; btn.textContent = "Mengunduh…";
   try {
     const r = await fetch(url);
@@ -145,95 +177,80 @@ async function saveFile(url, name, btn) {
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 4000);
   } catch { window.open(url, "_blank", "noopener"); }
-  btn.disabled = false; btn.textContent = old;
+  btn.disabled = false; btn.innerHTML = old;
 }
 
 function render(d) {
   const id = d.id || Date.now();
-
-  // --- Deteksi Photo Mode ---
-  const rawImages = Array.isArray(d.images) ? d.images : [];
-  const imgs = rawImages
-    .map(abs)
-    .filter(u => typeof u === "string" && u.length > 0);
-
+  const imgs = (Array.isArray(d.images) ? d.images : []).map(abs).filter(u => typeof u === "string" && u.length > 0);
   const isPhotoMode = imgs.length > 0;
-
   const hd = isPhotoMode ? "" : abs(d.hdplay);
   const sd = isPhotoMode ? "" : abs(d.play);
   const mp3 = abs(d.music || (d.music_info && d.music_info.play));
   const playSrc = hd || sd;
 
   const files = [];
-  if (hd) files.push(["Unduh Video HD", hd, `tiktok-${id}-hd.mp4`, ""]);
-  if (sd) files.push([hd ? "Unduh Video Biasa" : "Unduh Video", sd, `tiktok-${id}.mp4`, hd ? "white" : ""]);
-  if (!isPhotoMode && mp3) files.push(["Unduh Musik MP3", mp3, `tiktok-${id}.mp3`, "blue"]);
+  if (hd) files.push(["video", "Video HD", hd, `tiktok-${id}-hd.mp4`, "Tanpa watermark"]);
+  if (sd) files.push(["video", hd ? "Video biasa" : "Video", sd, `tiktok-${id}.mp4`, hd ? "Lebih ringan" : ""]);
+  if (!isPhotoMode && mp3) files.push(["music", "Musik saja", mp3, `tiktok-${id}.mp3`, "MP3"]);
 
   $("res").innerHTML = `
-    <span class="badge">${isPhotoMode ? "Slide Foto" : "Hasil"}</span>
-    ${playSrc ? `<video controls playsinline preload="metadata" poster="${esc(abs(d.cover))}" src="${esc(playSrc)}"></video>` : ""}
-    <div class="who"><img src="${esc(abs(d.author && d.author.avatar))}" alt=""><span>${esc(d.author && (d.author.nickname || d.author.unique_id))}</span></div>
+    <div class="res-h"><i></i>${isPhotoMode ? "Slide foto siap diunduh" : "Video siap diunduh"}</div>
+    ${playSrc ? `<div class="frame"><video controls playsinline preload="metadata" poster="${esc(abs(d.cover))}" src="${esc(playSrc)}"></video>${BRACKETS}</div>` : ""}
+    <div class="meta"><img src="${esc(abs(d.author && d.author.avatar))}" alt=""><span>${esc(d.author && (d.author.nickname || d.author.unique_id))}</span></div>
     <p class="title">${esc(d.title) || "Tanpa judul"}</p>
-    <p class="stats">${num(d.play_count)} tayangan · ${num(d.digg_count)} suka · ${num(d.comment_count)} komentar</p>
-    ${isPhotoMode ? `
-      <div class="imgs">${imgs.map((u,i)=>`<a href="${esc(u)}" target="_blank" rel="noopener"><img src="${esc(u)}" alt="Foto ${i+1}" loading="lazy"></a>`).join("")}</div>
-      <div id="photoActs"></div>
-    ` : ""}
-    <div id="acts"></div>`;
+    <p class="stats">${num(d.play_count)} tayangan, ${num(d.digg_count)} suka, ${num(d.comment_count)} komentar</p>
+    ${isPhotoMode ? `<div class="imgs">${imgs.map((u,i)=>`<a href="${esc(u)}" target="_blank" rel="noopener"><img src="${esc(u)}" alt="Foto ${i+1}" loading="lazy"></a>`).join("")}</div><div class="acts" id="photoActs"></div>` : ""}
+    <div class="acts" id="acts"></div>`;
 
-  files.forEach(([label, url, name, cls]) => {
+  files.forEach(([icon, label, url, name, tag], i) => {
     const b = document.createElement("button");
-    b.type = "button"; b.textContent = label; if (cls) b.className = cls;
+    b.type = "button"; b.innerHTML = btnHTML(icon, label, tag);
+    if (i > 0) b.className = "alt";
     b.onclick = () => saveFile(url, name, b);
     $("acts").appendChild(b);
   });
 
   if (isPhotoMode) {
     const photoActs = $("photoActs");
-
     const allBtn = document.createElement("button");
     allBtn.type = "button";
-    allBtn.textContent = "Download Semua Slide Foto";
+    allBtn.innerHTML = btnHTML("down", "Unduh semua slide foto", imgs.length + " foto");
     allBtn.onclick = async () => {
       allBtn.disabled = true;
-      const oldText = allBtn.textContent;
+      const old = allBtn.innerHTML;
       try {
         for (let i = 0; i < imgs.length; i++) {
-          allBtn.textContent = `Mengunduh Foto ${i + 1}/${imgs.length}…`;
+          allBtn.textContent = `Mengunduh foto ${i + 1}/${imgs.length}…`;
           await saveFile(imgs[i], `tiktok-${id}-foto-${i + 1}.jpg`, allBtn);
-          if (i < imgs.length - 1) {
-            await new Promise(resolve => setTimeout(resolve, 350));
-          }
+          if (i < imgs.length - 1) await new Promise(r => setTimeout(r, 350));
         }
-      } finally {
-        allBtn.disabled = false;
-        allBtn.textContent = oldText;
-      }
+      } finally { allBtn.disabled = false; allBtn.innerHTML = old; }
     };
     photoActs.appendChild(allBtn);
-
     imgs.forEach((url, i) => {
       const b = document.createElement("button");
-      b.type = "button";
-      b.textContent = `Download Slide Foto ${i + 1}`;
-      b.className = "white";
+      b.type = "button"; b.className = "alt";
+      b.innerHTML = btnHTML("image", `Foto ${i + 1}`, "JPG");
       b.onclick = () => saveFile(url, `tiktok-${id}-foto-${i + 1}.jpg`, b);
       photoActs.appendChild(b);
     });
   }
 
   $("res").classList.add("show");
+  $("stage").classList.add("has");
 }
 
 $("f").addEventListener("submit", async e => {
   e.preventDefault();
   $("res").classList.remove("show");
+  $("stage").classList.remove("has");
   msg("Memproses…");
   $("go").disabled = true;
   try {
     render(await fetchInfo($("url").value.trim()));
     msg("");
-    $("res").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion:reduce)").matches ? "auto" : "smooth"});
+    if (matchMedia("(max-width:899px)").matches) $("res").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion:reduce)").matches ? "auto" : "smooth"});
   } catch (err) {
     msg(err instanceof TypeError ? "Permintaan ke tikwm gagal. Buka halaman ini dari hosting sendiri (bukan pratinjau), atau periksa koneksi." : err.message, true);
   } finally { $("go").disabled = false; }
